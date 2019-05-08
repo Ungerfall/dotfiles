@@ -25,6 +25,8 @@ set modelines=0
 
 " Show line numbers
 set number
+" Show relative line number
+set relativenumber
 
 " Show file stats
 set ruler
@@ -34,8 +36,8 @@ set visualbell
 
 " Whitespace
 set wrap
-set textwidth=79
-set formatoptions=tcqrn1
+set textwidth=0
+set formatoptions=cqrn1
 set tabstop=2
 set shiftwidth=2
 set softtabstop=2
@@ -51,6 +53,9 @@ runtime! macros/matchit.vim
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
+
+" DOS line endings CR+LF
+set ff=dos
 
 " Allow hidden buffers
 set hidden
@@ -130,3 +135,6 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
+
+" user-defined functions
+source D:/development/vim/code-gen/codegen.vim
