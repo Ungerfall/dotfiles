@@ -100,11 +100,21 @@ map <leader>l :set list!<CR> " Toggle tabs and EOL
 " Color scheme (terminal)
 set t_Co=256
 set background=dark
-let g:solarized_termcolors=256
-let g:solarized_termtrans=1
-" put https://raw.github.com/altercation/vim-colors-solarized/master/colors/solarized.vim
-" in ~/.vim/colors/ and uncomment:
-colorscheme solarized
+colorscheme kuroi
+
+" opens gvim maximized
+au GUIEnter * simalt ~x
+
+" netrw
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+augroup ProjectDrawer
+  autocmd!
+  autocmd VimEnter * :Vexplore
+augroup END
 
 set diffexpr=MyDiff()
 function MyDiff()
@@ -137,4 +147,4 @@ function MyDiff()
 endfunction
 
 " user-defined functions
-source D:/development/vim/code-gen/codegen.vim
+" source D:/development/vim/code-gen/codegen.vim
