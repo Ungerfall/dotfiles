@@ -11,6 +11,37 @@ filetype off
 
 " TODO: Load plugins here (pathogen or vundle)
 
+call plug#begin('~/vimfiles/plugged')
+
+Plug 'itchyny/lightline.vim'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'tpope/vim-surround'
+Plug 'flazz/vim-colorschemes'
+
+call plug#end()
+
+" NERDTree
+autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
+
+" ligthline
+let g:lightline = {
+  \ 'colorscheme': 'wombat',
+  \ }
+
+" fzf
+nnoremap <C-f> :Files<Cr>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~30%' }
+
 " Turn on syntax highlighting
 syntax on
 
@@ -53,6 +84,10 @@ runtime! macros/matchit.vim
 " Move up/down editor lines
 nnoremap j gj
 nnoremap k gk
+
+" disable 'select all' in GVim
+nnoremap <kPlus> <C-a>
+nnoremap <kMinus> <C-x>
 
 " DOS line endings CR+LF
 set ff=dos
@@ -105,16 +140,12 @@ colorscheme kuroi
 " opens gvim maximized
 au GUIEnter * simalt ~x
 
-" netrw
-let g:netrw_banner = 0
-let g:netrw_liststyle = 3
-let g:netrw_browse_split = 4
-let g:netrw_altv = 1
-let g:netrw_winsize = 25
-augroup ProjectDrawer
-  autocmd!
-  autocmd VimEnter * :Vexplore
-augroup END
+" GUI
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
+:set guifont=Hack:h9:cRUSSIAN
 
 set diffexpr=MyDiff()
 function MyDiff()
