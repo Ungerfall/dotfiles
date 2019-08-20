@@ -1,0 +1,9 @@
+{
+    "workbench.colorTheme": "Default Dark Azure Data Studio",
+    "workbench.enablePreviewFeatures": true,
+    "editor.fontFamily": "Hack, monospace",
+    "resultsGrid.fontFamily": "Hack, monospace",
+
+    // vim
+    "vim.easymotionMarkerFontFamily": "Hack",
+}
