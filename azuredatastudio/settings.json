@@ -2,8 +2,21 @@
     "workbench.colorTheme": "Default Dark Azure Data Studio",
     "workbench.enablePreviewFeatures": true,
     "editor.fontFamily": "Hack, monospace",
+    "editor.fontSize": 12,
     "resultsGrid.fontFamily": "Hack, monospace",
+    "editor.lineNumbers": "relative",
+    "editor.rulers": [
+        120
+    ],
+    "files.encoding": "utf8bom",
+    "workbench.editor.showTabs": true,
+    "explorer.openEditors.visible": 0,
+    "editor.renderWhitespace": "all",
 
     // vim
     "vim.easymotionMarkerFontFamily": "Hack",
+
+    // git
+    "git.enabled": false,
+    "git.path": null,
 }
