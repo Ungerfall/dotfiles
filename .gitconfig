@@ -2,9 +2,9 @@
 	name = Leonid Petrov1
 	email = leonid_petrov1@epam.com
 [alias]
-	logg = log --graph --abbrev-commit --decorate --date=short --format=format:'%C(bold blue)%h%C(reset) \
-	- %C(bold green)(%ad)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(bold yellow)%d%C(reset)' --all
-  logol = log --oneline --graph
-	lstree = ls-tree --full-tree -r HEAD 
+  logol = log --pretty=format:'%C(yellow)%h %C(magenta)%ad %C(cyan)%an%C(green)%d %Creset%s' --date=short
 [merge]
 	tool = tortoisemerge
+[core]
+  editor = "'C:\\Program Files (x86)\\Vim\\vim81/gvim.exe' -f -i NONE"
+
