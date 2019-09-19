@@ -14,6 +14,7 @@ filetype off
 call plug#begin('~/vimfiles/plugged')
 
 Plug 'itchyny/lightline.vim'
+Plug 'enricobacis/vim-airline-clock'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
@@ -28,7 +29,15 @@ map <C-n> :NERDTreeToggle<CR>
 
 " ligthline
 let g:lightline = {
-  \ 'colorscheme': 'wombat',
+  \ 'colorscheme': 'jellybeans',
+  \ 'active': {
+  \   'right': [ [ 'lineinfo' ],
+  \              [ 'percent' ],
+  \              [ 'fileformat', 'fileencoding', 'filetype', 'clock' ] ]
+  \ },
+  \ 'component': {
+  \   'clock': '%{strftime("%H:%M")}'
+  \ },
   \ }
 
 " fzf
@@ -102,7 +111,7 @@ set ttyfast
 set laststatus=2
 
 " Last line
-set showmode
+set noshowmode
 set showcmd
 
 " Searching
