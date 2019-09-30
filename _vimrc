@@ -20,6 +20,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'tpope/vim-surround'
 Plug 'flazz/vim-colorschemes'
+Plug 'sheerun/vim-polyglot'
 
 call plug#end()
 
