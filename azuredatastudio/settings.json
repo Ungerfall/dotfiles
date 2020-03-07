@@ -1,25 +1,26 @@
 {
-    "workbench.colorTheme": "Default Dark Azure Data Studio",
-    "workbench.enablePreviewFeatures": true,
-    "editor.fontFamily": "Hack, monospace",
-    "editor.fontSize": 11.5,
-    "resultsGrid.fontFamily": "Hack, monospace",
-    "editor.lineNumbers": "relative",
-    "editor.rulers": [
-        120
-    ],
-    "files.encoding": "utf8bom",
-    "workbench.editor.showTabs": true,
-    "explorer.openEditors.visible": 0,
-    "editor.renderWhitespace": "all",
-    "editor.tabSize": 4,
-    "editor.insertSpaces": false,
-    "editor.detectIndentation": false,
-
-    // vim
-    "vim.easymotionMarkerFontFamily": "Hack",
-
-    // git
-    "git.enabled": false,
-    "git.path": null,
+	"workbench.colorTheme": "Solarized Dark",
+	"workbench.enablePreviewFeatures": true,
+	"editor.fontFamily": "Hack, monospace",
+	"editor.fontSize": 11.5,
+	"resultsGrid.fontFamily": "Hack, monospace",
+	"editor.lineNumbers": "relative",
+	"editor.rulers": [
+		120
+	],
+	"files.encoding": "utf8bom",
+	"workbench.editor.showTabs": true,
+	"explorer.openEditors.visible": 0,
+	"editor.renderWhitespace": "all",
+	"editor.tabSize": 4,
+	"editor.insertSpaces": false,
+	"editor.detectIndentation": false,
+	"editor.wordWrap": "on",
+	// vim
+	"vim.easymotionMarkerFontFamily": "Hack",
+	"vim.hlsearch": true,
+	// git
+	"git.enabled": false,
+	"git.path": null,
+	"window.zoomLevel": 0,
 }
