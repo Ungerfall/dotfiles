@@ -12,7 +12,7 @@
 
 diff -q _vimrc ~/_vimrc \
   & diff -q _vsvimrc ~/_vsvimrc \
-  & diff -q mswin.vim "C:/Program Files (x86)/Vim/vim81/mswin.vim" \
+  & diff -q mswin.vim "C:/Program Files (x86)/Vim/vim82/mswin.vim" \
   & diff -q azuredatastudio/keybindings.json "C:\Users\Leonid_Petrov1\AppData\Roaming\azuredatastudio\User\keybindings.json" \
   & diff -q azuredatastudio/settings.json "C:\Users\Leonid_Petrov1\AppData\Roaming\azuredatastudio\User\settings.json" \
   & diff -q azuredatastudio/snippets/sql.json "C:\Users\Leonid_Petrov1\AppData\Roaming\azuredatastudio\User\snippets\sql.json" \
