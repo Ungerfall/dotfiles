@@ -35,11 +35,26 @@
 	"Temp table": {
 		"prefix": "tt",
 		"body": [
-			"IF (OBJECT_ID('tempdb..#$1') IS NOT NULL) DROP #$1;",
+			"IF (OBJECT_ID('tempdb..#$1') IS NOT NULL) DROP TABLE #$1;",
 			"CREATE TABLE #$1 (",
 			"\t$0",
 			");",
-			"IF (OBJECT_ID('tempdb..#$1') IS NOT NULL) DROP #$1;"
+			"IF (OBJECT_ID('tempdb..#$1') IS NOT NULL) DROP TABLE #$1;"
+		]
+	},
+	"Inner join": {
+		"prefix": "ij",
+		"body": [
+			"INNER JOIN $1 AS $2 ON $2.$3 = $4",
+			"$0"
+		]
+	},
+	"Comment block": {
+		"prefix": "cb",
+		"body": [
+			"/*",
+			"\t$0",
+			"*/"
 		]
 	}
 }
