@@ -14,11 +14,9 @@ filetype off
 call plug#begin('~/vimfiles/plugged')
 
 Plug 'itchyny/lightline.vim'
-Plug 'enricobacis/vim-airline-clock'
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'
 Plug 'scrooloose/nerdtree'
-Plug 'tpope/vim-surround'
 Plug 'flazz/vim-colorschemes'
 Plug 'sheerun/vim-polyglot'
 
@@ -114,6 +112,14 @@ set laststatus=2
 " Last line
 set noshowmode
 set showcmd
+
+" set WSL bash for :terminal
+"if has("windows")
+"    set shell=C:\Windows\Sysnative\wsl.exe
+"    set shellpipe=|
+"    set shellredir=>
+"    set shellcmdflag=/c
+"endif
 
 " Searching
 nnoremap / /\v
