@@ -1,6 +1,11 @@
 set ignorecase
 set clipboard=unnamed
 
+" Show line numbers
+set number
+" Show relative line number
+set relativenumber
+
 map gd :vsc ReSharper.ReSharper_GotoDeclaration<CR>
 map <Space>r :vsc ReSharper.ReSharper_Rename<CR>
 map <Space>f :vsc ReSharper.ReSharper_GotoFileMember<CR>
