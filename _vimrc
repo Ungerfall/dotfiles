@@ -6,6 +6,12 @@ behave mswin
 " Don't try to be vi compatible
 set nocompatible
 
+set backup
+set dir=%TMP%
+set backupdir=%TMP%
+set directory=%TMP%
+set noundofile
+
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
 
@@ -14,11 +20,23 @@ filetype off
 call plug#begin('~/vimfiles/plugged')
 
 Plug 'itchyny/lightline.vim'
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'flazz/vim-colorschemes'
 Plug 'sheerun/vim-polyglot'
+" Plug 'OmniSharp/omnisharp-vim'
+" Snippets
+" Plug 'MarcWeber/vim-addon-mw-utils'
+" Plug 'tomtom/tlib_vim'
+" Plug 'garbas/vim-snipmate'
+" Plug 'honza/vim-snippets'
+" steppinS
+" react js typescript
+" Plug 'pangloss/vim-javascript'
+" Plug 'leafgarland/typescript-vim'
+" Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
@@ -131,6 +149,9 @@ set smartcase
 set showmatch
 map <leader><space> :let @/=''<cr> " clear search
 
+" ctrlp
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
 " Remap help key.
 inoremap <F1> <ESC>:set invfullscreen<CR>a
 nnoremap <F1> :set invfullscreen<CR>
@@ -142,7 +163,7 @@ vnoremap <F1> :set invfullscreen<CR>
 map <leader>q gqip
 
 " Visualize tabs and newlines
-set listchars=tab:?\ ,eol:¬
+set listchars=tab:?\ ,eol:ï¿½
 " Uncomment this to enable by default:
 " set list " To enable by default
 " Or use your leader key + l to toggle on/off
@@ -192,6 +213,3 @@ function MyDiff()
     let &shellxquote=l:shxq_sav
   endif
 endfunction
-
-" user-defined functions
-" source D:/development/vim/code-gen/codegen.vim
