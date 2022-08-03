@@ -1,2 +1,150 @@
+{
+    "workbench.colorTheme": "Solarized Dark",
+    "workbench.enablePreviewFeatures": true,
+    "editor.fontFamily": "Hack, monospace",
+    "editor.fontSize": 14,
+    "resultsGrid.fontFamily": "Hack, monospace",
+    "editor.lineNumbers": "relative",
+    "editor.rulers": [
+        80,
+        120
+    ],
+    "files.encoding": "utf8bom",
+    "workbench.editor.showTabs": true,
+    "explorer.openEditors.visible": 0,
+    "editor.renderWhitespace": "all",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    "editor.detectIndentation": false,
+    "editor.wordWrap": "on",
 
-INFO: Type "CLIP /?" for usage.
+    // vim
+    "vim.hlsearch": true,
+
+    // git
+    "git.enabled": false,
+    "git.path": null,
+    "[sql]": {
+        "editor.defaultFormatter": "Microsoft.mssql"
+    },
+    "editor.suggestSelection": "first",
+
+    "cSpell.enabledLanguageIds": [
+        "asciidoc",
+        "c",
+        "cpp",
+        "csharp",
+        "css",
+        "git-commit",
+        "go",
+        "handlebars",
+        "haskell",
+        "html",
+        "jade",
+        "java",
+        "javascript",
+        "javascriptreact",
+        "json",
+        "jsonc",
+        "latex",
+        "less",
+        "markdown",
+        "php",
+        "plaintext",
+        "python",
+        "pug",
+        "restructuredtext",
+        "rust",
+        "scala",
+        "scss",
+        "sql",
+        "text",
+        "typescript",
+        "typescriptreact",
+        "yaml",
+        "yml"
+    ],
+    "cSpell.userWords": [
+        "NOCOUNT",
+        "datetime",
+        "NVARCHAR",
+    ],
+    "cSpell.diagnosticLevel": "Hint",
+    "workbench.colorCustomizations": {
+        // will change the color of three dots to red
+        "editorHint.foreground": "#f000",
+        // will underline the entire word with dots in your chosen color
+        "editorHint.border": "#00ff66"
+    },
+    "workbench.startupEditor": "welcomePage",
+    "diffEditor.renderSideBySide": true,
+
+    "workbench.editorAssociations": {
+        "*.{sqlplan}": "workbench.editor.executionplan"
+    },
+    "datasource.connectionGroups": [
+        {
+            "name": "ROOT",
+            "id": "C777F06B-202E-4480-B475-FA416154D458"
+        }
+    ],
+    "datasource.connections": [
+        {
+            "options": {
+                "connectionName": "local",
+                "server": "EPRUIZHW0157\\SQL2014",
+                "database": "Client_DEVELOPMENT_Tests4",
+                "authenticationType": "SqlLogin",
+                "user": "debug",
+                "password": "",
+                "connectTimeout": "30",
+                "connectRetryCount": "1",
+                "connectRetryInterval": "10",
+                "applicationName": "azdata",
+                "multipleActiveResultSets": true,
+                "originalDatabase": "Client_DEVELOPMENT_Tests4",
+                "groupId": "C777F06B-202E-4480-B475-FA416154D458",
+                "databaseDisplayName": "Client_DEVELOPMENT_Tests4"
+            },
+            "groupId": "C777F06B-202E-4480-B475-FA416154D458",
+            "providerName": "MSSQL",
+            "savePassword": true,
+            "id": "6b4f1078-e7a8-4692-a90e-1e3430a7cd79"
+        },
+        {
+            "options": {
+                "connectionName": "IHS Integration Tests",
+                "server": "10.151.9.103,5024",
+                "database": "",
+                "authenticationType": "SqlLogin",
+                "user": "sqldep",
+                "password": "",
+                "applicationName": "azdata",
+                "groupId": "C777F06B-202E-4480-B475-FA416154D458",
+                "databaseDisplayName": ""
+            },
+            "groupId": "C777F06B-202E-4480-B475-FA416154D458",
+            "providerName": "MSSQL",
+            "savePassword": true,
+            "id": "5e4a0c5f-7fc5-410e-a866-491b6f5f3fde"
+        },
+        {
+            "options": {
+                "connectionName": "IHS DEV25",
+                "server": "10.151.10.228,5024",
+                "database": "",
+                "authenticationType": "SqlLogin",
+                "user": "sqldep",
+                "password": "",
+                "applicationName": "azdata",
+                "groupId": "C777F06B-202E-4480-B475-FA416154D458",
+                "databaseDisplayName": ""
+            },
+            "groupId": "C777F06B-202E-4480-B475-FA416154D458",
+            "providerName": "MSSQL",
+            "savePassword": true,
+            "id": "41b11705-4780-42dd-80c2-43b0f41dc3b9"
+        }
+    ]
+}
+
