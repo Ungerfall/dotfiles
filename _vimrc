@@ -11,6 +11,7 @@ set dir=%TMP%
 set backupdir=%TMP%
 set directory=%TMP%
 set noundofile
+set nofixendofline
 
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
@@ -41,7 +42,7 @@ Plug 'sheerun/vim-polyglot'
 call plug#end()
 
 " NERDTree
-autocmd vimenter * NERDTree
+" autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
 " ligthline
