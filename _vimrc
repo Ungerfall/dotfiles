@@ -140,6 +140,13 @@ set showcmd
 "    set shellcmdflag=/c
 "endif
 
+" set pwsh
+if has('win32')
+  set shell=pwsh
+  set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
+  set shellxquote=
+endif
+
 " Searching
 nnoremap / /\v
 vnoremap / /\v
