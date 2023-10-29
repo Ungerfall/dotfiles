@@ -27,6 +27,7 @@ Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'flazz/vim-colorschemes'
 Plug 'sheerun/vim-polyglot'
+Plug 'psliwka/vim-smoothie'
 " Plug 'OmniSharp/omnisharp-vim'
 " Snippets
 " Plug 'MarcWeber/vim-addon-mw-utils'
@@ -143,8 +144,13 @@ set showcmd
 " set pwsh
 if has('win32')
   set shell=pwsh
-  set shellcmdflag=-NoLogo\ -NoProfile\ -ExecutionPolicy\ RemoteSigned\ -Command
-  set shellxquote=
+  let &shellcmdflag='-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command'
+  if !has('patch-8.2.3079')
+    let &shellcmdflag = ' ' . &shellcmdflag
+  endif
+  let &shellxquote='"'
+  set shellxescape= shellquote= noshellslash
+  let &shellredir = '2>&1 | Out-File -Encoding Default %s; exit $LastExitCode'
 endif
 
 " Searching
