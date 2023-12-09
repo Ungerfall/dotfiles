@@ -216,6 +216,8 @@ function MyDiff()
         set shellxquote&
       endif
       let cmd = '"' . $VIMRUNTIME . '\diff"'
+    elseif &sh == 'pwsh'
+      let cmd = '& ' . '''' . $VIMRUNTIME . '\diff' . ''''
     else
       let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
     endif
