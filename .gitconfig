@@ -1,10 +1,34 @@
 [user]
-	name = Leonid Petrov1
-	email = leonid_petrov1@epam.com
+  name = Leonid Petrov
+  email = ungerfall@gmail.com
 [alias]
   logol = log --pretty=format:'%C(yellow)%h %C(magenta)%ad %C(cyan)%an%C(green)%d %Creset%s' --date=short
+  log-notags = log --decorate-refs-exclude=refs/tags --pretty='%C(yellow)%h %C(magenta)%ad %C(green)%d %Creset%s' --date=short
+  st = status
+  addi = add -i
+[diff]
+  tool = gvimdiff
+[difftool "gvimdiff"]
+  cmd = gvim -f -d $LOCAL $REMOTE
 [merge]
-	tool = tortoisemerge
+  tool = gvimdiff
+  conflictStyle = zdiff3
+[mergetool "gvimdiff"]
+  cmd = gvim -f -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J'
+  trustExitCode = false
+[mergetool]
+  prompt = false
+  keepBackup = false
 [core]
-  editor = "'C:\\Program Files (x86)\\Vim\\vim81/gvim.exe' -f -i NONE"
+  editor = "'C:\\Program Files\\Vim\\vim90/gvim.exe' -f -i NONE"
+  fsmonitor = true
+  pager = delta
+[pull]
+  rebase = true
+[interactive]
+  diffFilter = delta --color-only
+[delta]
+  navigate = true
+[rerere]
+  enabled = true
 
