@@ -6,6 +6,7 @@
     "auto": false,
     "notice": false
   },
+  "console_title_template": "{{.Folder}}",
   "blocks": [
     {
       "type": "prompt",
