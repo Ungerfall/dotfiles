@@ -178,6 +178,18 @@
                 "hidden": true,
                 "name": "Developer PowerShell for VS 18",
                 "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{645df17d-0b6d-5347-95d1-0a0c53cce443}",
+                "hidden": false,
+                "name": "Ubuntu",
+                "source": "Microsoft.WSL"
+            },
+            {
+                "guid": "{764da8a2-0758-5aeb-958d-3b08a7224c8b}",
+                "hidden": false,
+                "name": "podman-machine-default",
+                "source": "Microsoft.WSL"
             }
         ]
     },
