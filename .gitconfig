@@ -20,7 +20,7 @@
   prompt = false
   keepBackup = false
 [core]
-  editor = "'C:\\Program Files\\Vim\\vim90/gvim.exe' -f -i NONE"
+  editor = "'C:\\Program Files\\Vim\\vim91/gvim.exe' -f -i NONE"
   fsmonitor = true
   pager = delta
 [pull]
