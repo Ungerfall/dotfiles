@@ -28,7 +28,7 @@ Plug 'scrooloose/nerdtree'
 Plug 'flazz/vim-colorschemes'
 Plug 'sheerun/vim-polyglot'
 Plug 'psliwka/vim-smoothie'
-" Plug 'OmniSharp/omnisharp-vim'
+Plug 'OmniSharp/omnisharp-vim'
 " Snippets
 " Plug 'MarcWeber/vim-addon-mw-utils'
 " Plug 'tomtom/tlib_vim'
@@ -38,7 +38,19 @@ Plug 'psliwka/vim-smoothie'
 " react js typescript
 " Plug 'pangloss/vim-javascript'
 " Plug 'leafgarland/typescript-vim'
-" Plug 'peitalin/vim-jsx-typescript'
+
+"" Mappings, code-actions available flag and statusline integration
+Plug 'nickspoons/vim-sharpenup'
+
+" Linting/error highlighting
+Plug 'dense-analysis/ale'
+
+" Autocompletion
+Plug 'prabirshrestha/asyncomplete.vim'
+
+" Statusline
+Plug 'maximbaz/lightline-ale'
+Plug 'peitalin/vim-jsx-typescript'
 
 call plug#end()
 
@@ -46,18 +58,41 @@ call plug#end()
 " autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
 
-" ligthline
+" Lightline: {{{
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
   \ 'active': {
-  \   'right': [ [ 'lineinfo' ],
-  \              [ 'percent' ],
-  \              [ 'fileformat', 'fileencoding', 'filetype', 'clock' ] ]
+  \   'right': [
+  \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
+  \     ['lineinfo'], ['percent'],
+  \     ['fileformat', 'fileencoding', 'filetype', 'sharpenup']
+  \   ]
   \ },
   \ 'component': {
-  \   'clock': '%{strftime("%H:%M")}'
+  \   'sharpenup': sharpenup#statusline#Build()
   \ },
+  \ 'component_expand': {
+  \   'linter_checking': 'lightline#ale#checking',
+  \   'linter_infos': 'lightline#ale#infos',
+  \   'linter_warnings': 'lightline#ale#warnings',
+  \   'linter_errors': 'lightline#ale#errors',
+  \   'linter_ok': 'lightline#ale#ok'
+  \ },
+  \ 'component_type': {
+  \   'linter_checking': 'right',
+  \   'linter_infos': 'right',
+  \   'linter_warnings': 'warning',
+  \   'linter_errors': 'error',
+  \   'linter_ok': 'right'
   \ }
+\}
+" Use unicode chars for ale indicators in the statusline
+let g:lightline#ale#indicator_checking = "\uf110 "
+let g:lightline#ale#indicator_infos = "\uf129 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "
+" }}}
 
 " fzf
 nnoremap <C-f> :Files<Cr>
@@ -77,7 +112,7 @@ syntax on
 filetype plugin indent on
 
 " TODO: Pick a leader key
-" let mapleader = ","
+let mapleader = "\\"
 
 " Security
 set modelines=0
@@ -198,34 +233,77 @@ au GUIEnter * simalt ~x
 :set guioptions-=L  "remove left-hand scroll bar
 :set guifont=Hack:h9:cRUSSIAN
 
-set diffexpr=MyDiff()
-function MyDiff()
-  let opt = '-a --binary '
-  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
-  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
-  let arg1 = v:fname_in
-  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
-  let arg2 = v:fname_new
-  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
-  let arg3 = v:fname_out
-  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
-  if $VIMRUNTIME =~ ' '
-    if &sh =~ '\<cmd'
-      if empty(&shellxquote)
-        let l:shxq_sav = ''
-        set shellxquote&
-      endif
-      let cmd = '"' . $VIMRUNTIME . '\diff"'
-    elseif &sh == 'pwsh'
-      let cmd = '& ' . '''' . $VIMRUNTIME . '\diff' . ''''
-    else
-      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
-    endif
-  else
-    let cmd = $VIMRUNTIME . '\diff'
-  endif
-  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3
-  if exists('l:shxq_sav')
-    let &shellxquote=l:shxq_sav
-  endif
-endfunction
+" Settings: {{{
+if !exists('g:syntax_on') | syntax enable | endif
+set encoding=utf-8
+scriptencoding utf-8
+" }}}
+
+" ALE: {{{
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
+let g:ale_sign_info = '·'
+let g:ale_sign_style_error = '·'
+let g:ale_sign_style_warning = '·'
+
+let g:ale_linters = { 'cs': ['OmniSharp'] }
+" }}}
+
+" Asyncomplete: {{{
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 0
+" }}}
+
+" Sharpenup: {{{
+" All sharpenup mappings will begin with `<Space>os`, e.g. `<Space>osgd` for
+" :OmniSharpGotoDefinition
+let g:sharpenup_map_prefix = '<Space>os'
+
+let g:sharpenup_statusline_opts = { 'Text': '%s (%p/%P)' }
+let g:sharpenup_statusline_opts.Highlight = 0
+
+augroup OmniSharpIntegrations
+  autocmd!
+  autocmd User OmniSharpProjectUpdated,OmniSharpReady call lightline#update()
+augroup END
+" }}}
+
+
+" OmniSharp: {{{
+let g:OmniSharp_server_use_net6 = 1
+
+set completeopt=menuone,noinsert,noselect,popuphidden
+set completepopup=highlight:Pmenu,border:off
+
+autocmd FileType cs setlocal shiftround shiftwidth=4 tabstop=8 softtabstop=-1 title
+autocmd FileType cs setlocal nostartofline splitbelow splitright
+autocmd FileType cs setlocal nonumber noruler signcolumn=yes
+autocmd FileType cs setlocal mouse=a updatetime=1000
+
+let g:OmniSharp_popup_position = 'peek'
+if has('nvim')
+  let g:OmniSharp_popup_options = {
+  \ 'winblend': 30,
+  \ 'winhl': 'Normal:Normal,FloatBorder:ModeMsg',
+  \ 'border': 'rounded'
+  \}
+else
+  let g:OmniSharp_popup_options = {
+  \ 'highlight': 'Normal',
+  \ 'padding': [0],
+  \ 'border': [1],
+  \ 'borderchars': ['─', '│', '─', '│', '╭', '╮', '╯', '╰'],
+  \ 'borderhighlight': ['ModeMsg']
+  \}
+endif
+let g:OmniSharp_popup_mappings = {
+\ 'sigNext': '<C-n>',
+\ 'sigPrev': '<C-p>',
+\ 'pageDown': ['<C-f>', '<PageDown>'],
+\ 'pageUp': ['<C-b>', '<PageUp>']
+\}
+
+let g:OmniSharp_highlight_groups = {
+\ 'ExcludedCode': 'NonText'
+\}
+" }}}
