@@ -45,7 +45,7 @@ map <Space>s :vsc Edit.SurroundWith<CR>
 map <Space>t :vsc Edit.GoToType<CR>
 map <Space>b :vsc Build.BuildSolution<CR>
 map <Space>; A;<Esc>
-map <Space>c :vsc Edit.Copilot.Open<CR>
+map <Space>c :vsc EditorContextMenus.FileHealthIndicator.RunDefaultCodeCleanup<CR>
 map gc :vsc Edit.Copilot.TriggerInlineSuggestion<CR>
 
 map zl :so ~/_vsvimrc<CR>
