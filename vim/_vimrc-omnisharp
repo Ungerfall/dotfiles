@@ -1,0 +1,349 @@
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+" simonista/.vimrc
+" Don't try to be vi compatible
+set nocompatible
+
+set backup
+set dir=%TMP%
+set backupdir=%TMP%
+set directory=%TMP%
+set noundofile
+set nofixendofline
+
+" Helps force plugins to load correctly when it is turned back on below
+filetype off
+
+" TODO: Load plugins here (pathogen or vundle)
+
+call plug#begin('~/vimfiles/plugged')
+
+Plug 'itchyny/lightline.vim'
+" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+" Plug 'junegunn/fzf.vim'
+Plug 'ctrlpvim/ctrlp.vim'
+Plug 'scrooloose/nerdtree'
+Plug 'flazz/vim-colorschemes'
+Plug 'sheerun/vim-polyglot'
+Plug 'psliwka/vim-smoothie'
+Plug 'OmniSharp/omnisharp-vim'
+" Snippets
+" Plug 'MarcWeber/vim-addon-mw-utils'
+" Plug 'tomtom/tlib_vim'
+" Plug 'garbas/vim-snipmate'
+" Plug 'honza/vim-snippets'
+" steppinS
+" react js typescript
+" Plug 'pangloss/vim-javascript'
+" Plug 'leafgarland/typescript-vim'
+
+"" Mappings, code-actions available flag and statusline integration
+Plug 'nickspoons/vim-sharpenup'
+
+" Linting/error highlighting
+Plug 'dense-analysis/ale'
+
+" Autocompletion
+Plug 'prabirshrestha/asyncomplete.vim'
+
+" Statusline
+Plug 'maximbaz/lightline-ale'
+Plug 'peitalin/vim-jsx-typescript'
+
+call plug#end()
+
+" NERDTree
+" autocmd vimenter * NERDTree
+map <C-n> :NERDTreeToggle<CR>
+nnoremap <Leader>l :NERDTreeFind<CR>
+
+" Lightline: {{{
+let g:lightline = {
+  \ 'colorscheme': 'jellybeans',
+  \ 'active': {
+  \   'right': [
+  \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
+  \     ['lineinfo'], ['percent'],
+  \     ['fileformat', 'fileencoding', 'filetype', 'sharpenup']
+  \   ]
+  \ },
+  \ 'component': {
+  \   'sharpenup': sharpenup#statusline#Build()
+  \ },
+  \ 'component_expand': {
+  \   'linter_checking': 'lightline#ale#checking',
+  \   'linter_infos': 'lightline#ale#infos',
+  \   'linter_warnings': 'lightline#ale#warnings',
+  \   'linter_errors': 'lightline#ale#errors',
+  \   'linter_ok': 'lightline#ale#ok'
+  \ },
+  \ 'component_type': {
+  \   'linter_checking': 'right',
+  \   'linter_infos': 'right',
+  \   'linter_warnings': 'warning',
+  \   'linter_errors': 'error',
+  \   'linter_ok': 'right'
+  \ }
+\}
+" Use unicode chars for ale indicators in the statusline
+let g:lightline#ale#indicator_checking = "\uf110 "
+let g:lightline#ale#indicator_infos = "\uf129 "
+let g:lightline#ale#indicator_warnings = "\uf071 "
+let g:lightline#ale#indicator_errors = "\uf05e "
+let g:lightline#ale#indicator_ok = "\uf00c "
+" }}}
+
+" fzf
+nnoremap <C-f> :Files<Cr>
+let g:fzf_action = {
+  \ 'ctrl-t': 'tab split',
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-v': 'vsplit' }
+
+" Default fzf layout
+" - down / up / left / right
+let g:fzf_layout = { 'down': '~30%' }
+
+" Turn on syntax highlighting
+syntax on
+
+" For plugins to load correctly
+filetype plugin indent on
+
+" TODO: Pick a leader key
+let mapleader = "\\"
+
+" Security
+set modelines=0
+
+" Show line numbers
+set number
+" Show relative line number
+set relativenumber
+
+" Show file stats
+set ruler
+
+" Blink cursor on error instead of beeping (grr)
+set visualbell
+
+" Whitespace
+set wrap
+set textwidth=0
+set formatoptions=cqrn1
+set tabstop=2
+set shiftwidth=2
+set softtabstop=2
+set expandtab
+set noshiftround
+
+" Cursor motion
+set scrolloff=3
+set backspace=indent,eol,start
+set matchpairs+=<:> " use % to jump between pairs
+runtime! macros/matchit.vim
+
+" Move up/down editor lines
+nnoremap j gj
+nnoremap k gk
+
+" disable 'select all' in GVim
+nnoremap <kPlus> <C-a>
+nnoremap <kMinus> <C-x>
+
+" DOS line endings CR+LF
+set ff=dos
+
+" Allow hidden buffers
+set hidden
+
+" Rendering
+set ttyfast
+
+" Status bar
+set laststatus=2
+
+" Last line
+set noshowmode
+set showcmd
+
+" set WSL bash for :terminal
+"if has("windows")
+"    set shell=C:\Windows\Sysnative\wsl.exe
+"    set shellpipe=|
+"    set shellredir=>
+"    set shellcmdflag=/c
+"endif
+
+" set pwsh
+if has('win32')
+  set shell=pwsh
+  let &shellcmdflag='-NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command'
+  if !has('patch-8.2.3079')
+    let &shellcmdflag = ' ' . &shellcmdflag
+  endif
+  let &shellxquote='"'
+  set shellxescape= shellquote= noshellslash
+  let &shellredir = '2>&1 | Out-File -Encoding Default %s; exit $LastExitCode'
+endif
+
+" Searching
+nnoremap / /\v
+vnoremap / /\v
+set hlsearch
+set incsearch
+set ignorecase
+set smartcase
+set showmatch
+map <leader><space> :let @/=''<cr> " clear search
+
+" ctrlp
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
+
+" Remap help key.
+inoremap <F1> <ESC>:set invfullscreen<CR>a
+nnoremap <F1> :set invfullscreen<CR>
+vnoremap <F1> :set invfullscreen<CR>
+
+" Textmate holdouts
+
+" Formatting
+map <leader>q gqip
+
+" Visualize tabs and newlines
+set listchars=tab:?\ ,eol:�
+" Uncomment this to enable by default:
+" set list " To enable by default
+" Or use your leader key + l to toggle on/off
+map <leader>tl :set list!<CR> " Toggle tabs and EOL
+
+" Color scheme (terminal)
+set t_Co=256
+set background=dark
+colorscheme kuroi
+
+" opens gvim maximized
+au GUIEnter * simalt ~x
+
+" GUI
+:set guioptions-=m  "remove menu bar
+:set guioptions-=T  "remove toolbar
+:set guioptions-=r  "remove right-hand scroll bar
+:set guioptions-=L  "remove left-hand scroll bar
+:set guifont=Hack:h9:cRUSSIAN
+
+" Settings: {{{
+if !exists('g:syntax_on') | syntax enable | endif
+set encoding=utf-8
+scriptencoding utf-8
+" }}}
+
+" ALE: {{{
+let g:ale_sign_error = '•'
+let g:ale_sign_warning = '•'
+let g:ale_sign_info = '·'
+let g:ale_sign_style_error = '·'
+let g:ale_sign_style_warning = '·'
+
+let g:ale_linters = { 'cs': ['OmniSharp'] }
+" }}}
+
+" Asyncomplete: {{{
+let g:asyncomplete_auto_popup = 1
+let g:asyncomplete_auto_completeopt = 0
+" }}}
+
+" Sharpenup: {{{
+" All sharpenup mappings will begin with `<Space>os`, e.g. `<Space>osgd` for
+" :OmniSharpGotoDefinition
+let g:sharpenup_map_prefix = '<Space>os'
+
+let g:sharpenup_statusline_opts = { 'Text': '%s (%p/%P)' }
+let g:sharpenup_statusline_opts.Highlight = 0
+
+augroup OmniSharpIntegrations
+  autocmd!
+  autocmd User OmniSharpProjectUpdated,OmniSharpReady call lightline#update()
+augroup END
+" }}}
+
+
+" OmniSharp: {{{
+let g:OmniSharp_server_use_net6 = 1
+
+set completeopt=menuone,noinsert,noselect,popuphidden
+set completepopup=highlight:Pmenu,border:off
+
+autocmd FileType cs setlocal shiftround shiftwidth=4 tabstop=8 softtabstop=-1 title
+autocmd FileType cs setlocal nostartofline splitbelow splitright
+autocmd FileType cs setlocal nonumber noruler signcolumn=yes
+autocmd FileType cs setlocal mouse=a updatetime=1000
+
+let g:OmniSharp_popup_position = 'peek'
+if has('nvim')
+  let g:OmniSharp_popup_options = {
+  \ 'winblend': 30,
+  \ 'winhl': 'Normal:Normal,FloatBorder:ModeMsg',
+  \ 'border': 'rounded'
+  \}
+else
+  let g:OmniSharp_popup_options = {
+  \ 'highlight': 'Normal',
+  \ 'padding': [0],
+  \ 'border': [1],
+  \ 'borderchars': ['─', '│', '─', '│', '╭', '╮', '╯', '╰'],
+  \ 'borderhighlight': ['ModeMsg']
+  \}
+endif
+let g:OmniSharp_popup_mappings = {
+\ 'sigNext': '<C-n>',
+\ 'sigPrev': '<C-p>',
+\ 'pageDown': ['<C-f>', '<PageDown>'],
+\ 'pageUp': ['<C-b>', '<PageUp>']
+\}
+
+let g:OmniSharp_highlight_groups = {
+\ 'ExcludedCode': 'NonText'
+\}
+
+augroup omnisharp_commands
+  autocmd!
+
+  " Show type information automatically when the cursor stops moving.
+  " Note that the type is echoed to the Vim command line, and will overwrite
+  " any other messages in this space including e.g. ALE linting messages.
+  autocmd CursorHold *.cs OmniSharpTypeLookup
+
+  " The following commands are contextual, based on the cursor position.
+  autocmd FileType cs nmap <silent> <buffer> gd <Plug>(omnisharp_go_to_definition)
+  autocmd FileType cs nmap <silent> <buffer> <Space>osgr <Plug>(omnisharp_find_usages)
+  autocmd FileType cs nmap <silent> <buffer> <Space>osgi <Plug>(omnisharp_find_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <Space>ospd <Plug>(omnisharp_preview_definition)
+  autocmd FileType cs nmap <silent> <buffer> <Space>ospi <Plug>(omnisharp_preview_implementations)
+  autocmd FileType cs nmap <silent> <buffer> <Space>ostl <Plug>(omnisharp_type_lookup)
+  autocmd FileType cs nmap <silent> <buffer> <Space>osd <Plug>(omnisharp_documentation)
+  autocmd FileType cs nmap <silent> <buffer> <Space>ost <Plug>(omnisharp_find_symbol)
+  autocmd FileType cs nmap <silent> <buffer> <Space>osfx <Plug>(omnisharp_fix_usings)
+  autocmd FileType cs nmap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+  autocmd FileType cs imap <silent> <buffer> <C-\> <Plug>(omnisharp_signature_help)
+
+  " Navigate up and down by method/property/field
+  " autocmd FileType cs nmap <silent> <buffer> [[ <Plug>(omnisharp_navigate_up)
+  " autocmd FileType cs nmap <silent> <buffer> ]] <Plug>(omnisharp_navigate_down)
+
+  " Find all code errors/warnings for the current solution and populate the quickfix window
+  autocmd FileType cs nmap <silent> <buffer> <Space>osgcc <Plug>(omnisharp_global_code_check)
+  " Contextual code actions (uses fzf, vim-clap, CtrlP or unite.vim selector when available)
+  autocmd FileType cs nmap <silent> <buffer> <Space>osca <Plug>(omnisharp_code_actions)
+  autocmd FileType cs xmap <silent> <buffer> <Space>osca <Plug>(omnisharp_code_actions)
+  " Repeat the last code action performed (does not use a selector)
+  autocmd FileType cs nmap <silent> <buffer> <Space>os. <Plug>(omnisharp_code_action_repeat)
+  autocmd FileType cs xmap <silent> <buffer> <Space>os. <Plug>(omnisharp_code_action_repeat)
+
+  autocmd FileType cs nmap <silent> <buffer> <Space>os= <Plug>(omnisharp_code_format)
+
+  autocmd FileType cs nmap <silent> <buffer> <Space>osr <Plug>(omnisharp_rename)
+augroup END
+" }}}
