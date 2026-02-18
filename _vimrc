@@ -1,5 +1,5 @@
 source $VIMRUNTIME/vimrc_example.vim
-source $VIMRUNTIME/mswin.vim
+source C:/development/dotfiles/mswin.vim
 behave mswin
 
 " simonista/.vimrc
@@ -16,97 +16,39 @@ set nofixendofline
 " Helps force plugins to load correctly when it is turned back on below
 filetype off
 
-" TODO: Load plugins here (pathogen or vundle)
-
 call plug#begin('~/vimfiles/plugged')
 
 Plug 'itchyny/lightline.vim'
-" Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-" Plug 'junegunn/fzf.vim'
 Plug 'ctrlpvim/ctrlp.vim'
 Plug 'scrooloose/nerdtree'
 Plug 'flazz/vim-colorschemes'
 Plug 'sheerun/vim-polyglot'
+Plug 'jlcrochet/vim-cs'
 Plug 'psliwka/vim-smoothie'
-Plug 'OmniSharp/omnisharp-vim'
-" Snippets
-" Plug 'MarcWeber/vim-addon-mw-utils'
-" Plug 'tomtom/tlib_vim'
-" Plug 'garbas/vim-snipmate'
-" Plug 'honza/vim-snippets'
-" steppinS
-" react js typescript
-" Plug 'pangloss/vim-javascript'
-" Plug 'leafgarland/typescript-vim'
-
-"" Mappings, code-actions available flag and statusline integration
-Plug 'nickspoons/vim-sharpenup'
-
-" Linting/error highlighting
-Plug 'dense-analysis/ale'
-
-" Autocompletion
-Plug 'prabirshrestha/asyncomplete.vim'
-
-" Statusline
-Plug 'maximbaz/lightline-ale'
-Plug 'peitalin/vim-jsx-typescript'
+Plug 'yegappan/lsp'
 
 call plug#end()
 
 " NERDTree
 " autocmd vimenter * NERDTree
 map <C-n> :NERDTreeToggle<CR>
+nnoremap <Leader>l :NERDTreeFind<CR>
 
 " Lightline: {{{
 let g:lightline = {
   \ 'colorscheme': 'jellybeans',
   \ 'active': {
   \   'right': [
-  \     ['linter_checking', 'linter_errors', 'linter_warnings', 'linter_infos', 'linter_ok'],
   \     ['lineinfo'], ['percent'],
-  \     ['fileformat', 'fileencoding', 'filetype', 'sharpenup']
+  \     ['fileformat', 'fileencoding', 'filetype']
   \   ]
-  \ },
-  \ 'component': {
-  \   'sharpenup': sharpenup#statusline#Build()
-  \ },
-  \ 'component_expand': {
-  \   'linter_checking': 'lightline#ale#checking',
-  \   'linter_infos': 'lightline#ale#infos',
-  \   'linter_warnings': 'lightline#ale#warnings',
-  \   'linter_errors': 'lightline#ale#errors',
-  \   'linter_ok': 'lightline#ale#ok'
-  \ },
-  \ 'component_type': {
-  \   'linter_checking': 'right',
-  \   'linter_infos': 'right',
-  \   'linter_warnings': 'warning',
-  \   'linter_errors': 'error',
-  \   'linter_ok': 'right'
   \ }
 \}
-" Use unicode chars for ale indicators in the statusline
-let g:lightline#ale#indicator_checking = "\uf110 "
-let g:lightline#ale#indicator_infos = "\uf129 "
-let g:lightline#ale#indicator_warnings = "\uf071 "
-let g:lightline#ale#indicator_errors = "\uf05e "
-let g:lightline#ale#indicator_ok = "\uf00c "
-" }}}
 
-" fzf
-nnoremap <C-f> :Files<Cr>
-let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
-
-" Default fzf layout
-" - down / up / left / right
-let g:fzf_layout = { 'down': '~30%' }
 
 " Turn on syntax highlighting
 syntax on
+set spell spelllang=en_us
 
 " For plugins to load correctly
 filetype plugin indent on
@@ -168,14 +110,6 @@ set laststatus=2
 set noshowmode
 set showcmd
 
-" set WSL bash for :terminal
-"if has("windows")
-"    set shell=C:\Windows\Sysnative\wsl.exe
-"    set shellpipe=|
-"    set shellredir=>
-"    set shellcmdflag=/c
-"endif
-
 " set pwsh
 if has('win32')
   set shell=pwsh
@@ -206,8 +140,6 @@ inoremap <F1> <ESC>:set invfullscreen<CR>a
 nnoremap <F1> :set invfullscreen<CR>
 vnoremap <F1> :set invfullscreen<CR>
 
-" Textmate holdouts
-
 " Formatting
 map <leader>q gqip
 
@@ -216,7 +148,7 @@ set listchars=tab:?\ ,eol:�
 " Uncomment this to enable by default:
 " set list " To enable by default
 " Or use your leader key + l to toggle on/off
-map <leader>l :set list!<CR> " Toggle tabs and EOL
+map <leader>tl :set list!<CR> " Toggle tabs and EOL
 
 " Color scheme (terminal)
 set t_Co=256
@@ -239,71 +171,27 @@ set encoding=utf-8
 scriptencoding utf-8
 " }}}
 
-" ALE: {{{
-let g:ale_sign_error = '•'
-let g:ale_sign_warning = '•'
-let g:ale_sign_info = '·'
-let g:ale_sign_style_error = '·'
-let g:ale_sign_style_warning = '·'
-
-let g:ale_linters = { 'cs': ['OmniSharp'] }
-" }}}
-
-" Asyncomplete: {{{
-let g:asyncomplete_auto_popup = 1
-let g:asyncomplete_auto_completeopt = 0
-" }}}
-
-" Sharpenup: {{{
-" All sharpenup mappings will begin with `<Space>os`, e.g. `<Space>osgd` for
-" :OmniSharpGotoDefinition
-let g:sharpenup_map_prefix = '<Space>os'
-
-let g:sharpenup_statusline_opts = { 'Text': '%s (%p/%P)' }
-let g:sharpenup_statusline_opts.Highlight = 0
-
-augroup OmniSharpIntegrations
-  autocmd!
-  autocmd User OmniSharpProjectUpdated,OmniSharpReady call lightline#update()
-augroup END
-" }}}
-
-
-" OmniSharp: {{{
-let g:OmniSharp_server_use_net6 = 1
-
-set completeopt=menuone,noinsert,noselect,popuphidden
-set completepopup=highlight:Pmenu,border:off
-
+" TODO: move to ftplugin
+" CSharp: {{{
 autocmd FileType cs setlocal shiftround shiftwidth=4 tabstop=8 softtabstop=-1 title
 autocmd FileType cs setlocal nostartofline splitbelow splitright
 autocmd FileType cs setlocal nonumber noruler signcolumn=yes
 autocmd FileType cs setlocal mouse=a updatetime=1000
+autocmd FileType cs setlocal cc=120
+" }}}
 
-let g:OmniSharp_popup_position = 'peek'
-if has('nvim')
-  let g:OmniSharp_popup_options = {
-  \ 'winblend': 30,
-  \ 'winhl': 'Normal:Normal,FloatBorder:ModeMsg',
-  \ 'border': 'rounded'
-  \}
-else
-  let g:OmniSharp_popup_options = {
-  \ 'highlight': 'Normal',
-  \ 'padding': [0],
-  \ 'border': [1],
-  \ 'borderchars': ['─', '│', '─', '│', '╭', '╮', '╯', '╰'],
-  \ 'borderhighlight': ['ModeMsg']
-  \}
-endif
-let g:OmniSharp_popup_mappings = {
-\ 'sigNext': '<C-n>',
-\ 'sigPrev': '<C-p>',
-\ 'pageDown': ['<C-f>', '<PageDown>'],
-\ 'pageUp': ['<C-b>', '<PageUp>']
-\}
+" LSP: {{{
+let lspOpts = #{
+  \ autoHighlightDiags: v:true,
+  \ showDiagWithVirtualText: v:true
+  \ }
+autocmd User LspSetup call LspOptionsSet(lspOpts)
 
-let g:OmniSharp_highlight_groups = {
-\ 'ExcludedCode': 'NonText'
-\}
+let lspServers = [#{
+	\	  name: 'csharp',
+	\	  filetype: ['cs', 'csx'],
+	\	  path: 'csharp-ls',
+	\	  args: []
+	\ }]
+autocmd User LspSetup call LspAddServer(lspServers)
 " }}}
