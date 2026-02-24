@@ -48,7 +48,6 @@ let g:lightline = {
 
 " Turn on syntax highlighting
 syntax on
-set spell spelllang=en_us
 
 " For plugins to load correctly
 filetype plugin indent on
@@ -183,7 +182,8 @@ autocmd FileType cs setlocal cc=120
 " LSP: {{{
 let lspOpts = #{
   \ autoHighlightDiags: v:true,
-  \ showDiagWithVirtualText: v:true
+  \ showDiagWithVirtualText: v:true,
+  \ diagVirtualTextAlign: 'after'
   \ }
 autocmd User LspSetup call LspOptionsSet(lspOpts)
 
